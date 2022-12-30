@@ -14,12 +14,17 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://Ground.gd"
 }, {
-"base": "Node2D",
+"base": "Point",
 "class": &"Launcher",
 "language": &"GDScript",
 "path": "res://Launcher.gd"
 }, {
 "base": "Node2D",
+"class": &"Point",
+"language": &"GDScript",
+"path": "res://Point.gd"
+}, {
+"base": "Point",
 "class": &"Positioner",
 "language": &"GDScript",
 "path": "res://Positioner.gd"
@@ -27,6 +32,7 @@ _global_script_classes=[{
 _global_script_class_icons={
 "Ground": "",
 "Launcher": "",
+"Point": "",
 "Positioner": ""
 }
 
@@ -37,6 +43,15 @@ run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
+anti_aliasing/quality/msaa_2d=1

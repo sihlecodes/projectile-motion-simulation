@@ -1,23 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgdpdgqbxlnfu"]
+[gd_scene load_steps=5 format=3 uid="uid://cgdpdgqbxlnfu"]
 
 [ext_resource type="Script" path="res://Launcher.gd" id="1_4y0x0"]
 [ext_resource type="Script" path="res://Positioner.gd" id="2_p10c2"]
+[ext_resource type="PackedScene" uid="uid://cvlpph2b12vui" path="res://Point.tscn" id="2_qrun5"]
 [ext_resource type="Script" path="res://Ground.gd" id="3_fe7y5"]
 
 [node name="Main" type="Node"]
 
-[node name="Launcher" type="Node2D" parent="."]
-position = Vector2(498, 270)
+[node name="Launcher" parent="." instance=ExtResource("2_qrun5")]
+position = Vector2(719, 323)
 script = ExtResource("1_4y0x0")
-range_radius = 100.0
-range_color = Color(0.675, 0.84, 0.9, 0.498039)
+range_radius = 50.0
+range_color = Color(0.678431, 0.847059, 0.901961, 1)
+color = Color(0.431373, 0.168627, 0.988235, 1)
 
-[node name="Positioner" type="Node2D" parent="Launcher"]
-position = Vector2(64, 70)
+[node name="Positioner" parent="Launcher" instance=ExtResource("2_qrun5")]
+position = Vector2(42, 12)
 script = ExtResource("2_p10c2")
-color = Color(0.352941, 0.596078, 0.988235, 1)
-radius = 10.0
-connector_color = Color(0.929412, 0.392157, 0.631373, 1)
+connector_color = Color(0.929412, 0.392157, 0.85098, 1)
+color = Color(0.929412, 0.384314, 0.384314, 1)
+radius = 15.15
 
 [node name="Ground" type="Line2D" parent="."]
 position = Vector2(-1, 309)
