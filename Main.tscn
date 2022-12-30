@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cgdpdgqbxlnfu"]
+
+[ext_resource type="Script" path="res://Launcher.gd" id="1_4y0x0"]
+[ext_resource type="Script" path="res://Positioner.gd" id="2_p10c2"]
+[ext_resource type="Script" path="res://Ground.gd" id="3_fe7y5"]
+
+[node name="Main" type="Node"]
+
+[node name="Launcher" type="Node2D" parent="."]
+position = Vector2(498, 270)
+script = ExtResource("1_4y0x0")
+range_radius = 100.0
+range_color = Color(0.675, 0.84, 0.9, 0.498039)
+
+[node name="Positioner" type="Node2D" parent="Launcher"]
+position = Vector2(64, 70)
+script = ExtResource("2_p10c2")
+color = Color(0.352941, 0.596078, 0.988235, 1)
+radius = 10.0
+connector_color = Color(0.929412, 0.392157, 0.631373, 1)
+
+[node name="Ground" type="Line2D" parent="."]
+position = Vector2(-1, 309)
+points = PackedVector2Array(0, 120, 1152, 120)
+script = ExtResource("3_fe7y5")

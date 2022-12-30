@@ -8,9 +8,32 @@
 
 config_version=5
 
+_global_script_classes=[{
+"base": "Line2D",
+"class": &"Ground",
+"language": &"GDScript",
+"path": "res://Ground.gd"
+}, {
+"base": "Node2D",
+"class": &"Launcher",
+"language": &"GDScript",
+"path": "res://Launcher.gd"
+}, {
+"base": "Node2D",
+"class": &"Positioner",
+"language": &"GDScript",
+"path": "res://Positioner.gd"
+}]
+_global_script_class_icons={
+"Ground": "",
+"Launcher": "",
+"Positioner": ""
+}
+
 [application]
 
 config/name="ProjectileMotionSimulation"
+run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"
 
