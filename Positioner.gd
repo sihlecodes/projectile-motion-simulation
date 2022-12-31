@@ -1,3 +1,4 @@
+@tool
 extends Point
 
 class_name Positioner
