@@ -26,6 +26,10 @@ func _ready() -> void:
 			print("Angle: %s" % rad_to_deg(get_initial_velocity_from(child).angle()))
 			print("Child angle: %s" % rad_to_deg(child.global_position.angle_to(global_position)))
 
+func _process(_delta: float) -> void:
+	super._process(_delta)
+	position.y = clamp(position.y, 0, $"../Ground".position.y - radius * 2)
+
 func _draw():
 	draw_circle(Vector2(), range_radius, range_color)
 
