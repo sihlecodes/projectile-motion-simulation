@@ -8,19 +8,20 @@
 [node name="Main" type="Node"]
 
 [node name="Launcher" parent="." instance=ExtResource("2_qrun5")]
-position = Vector2(551, 274)
+position = Vector2(561, 350)
 script = ExtResource("1_4y0x0")
 range_radius = 100.0
 range_color = Color(0.678431, 0.847059, 0.901961, 1)
+draw_steps = 50
 color = Color(0.431373, 0.168627, 0.988235, 1)
 
 [node name="Positioner" parent="Launcher" instance=ExtResource("2_qrun5")]
-position = Vector2(51, 0)
+position = Vector2(21, 76)
 script = ExtResource("2_p10c2")
 connector_color = Color(0.929412, 0.392157, 0.85098, 1)
 color = Color(0.929412, 0.384314, 0.384314, 1)
 
 [node name="Ground" type="Line2D" parent="."]
-position = Vector2(-1, 309)
-points = PackedVector2Array(0, 120, 1152, 120)
+position = Vector2(-1, 450)
+points = PackedVector2Array(0, 0, 1152, 0)
 script = ExtResource("3_fe7y5")
