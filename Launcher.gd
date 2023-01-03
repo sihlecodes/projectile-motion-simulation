@@ -8,7 +8,8 @@ class_name Launcher
 
 const GRAVITY: float = 9.8
 const VECTOR_LINE_WIDTH = 2
-const VECOTR_HEAD_LENGTH = 15
+const VECTOR_HEAD_LENGTH = 15
+const VECTOR_HEAD_ANGLE = PI / 3
 
 @export var draw_steps = 5
 
@@ -40,8 +41,8 @@ func draw_vector(vector: Vector2, color: Color):
 	draw_line(Vector2(), line_end, color, VECTOR_LINE_WIDTH, true)
 
 	# draw arrow head lines
-	draw_line(line_end, line_end - (Vector2.RIGHT * VECOTR_HEAD_LENGTH).rotated(PI/5), color, VECTOR_LINE_WIDTH, true)
-	draw_line(line_end, line_end - (Vector2.RIGHT * VECOTR_HEAD_LENGTH).rotated(-PI/5), color, VECTOR_LINE_WIDTH, true)
+	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
+	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
 
 	draw_set_transform(Vector2.ZERO)
 

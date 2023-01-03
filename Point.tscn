@@ -4,7 +4,6 @@
 
 [node name="Point" type="Node2D" groups=["points"]]
 script = ExtResource("1_jkkut")
-radius = 5.0
 
 [node name="area" type="Area2D" parent="."]
 
