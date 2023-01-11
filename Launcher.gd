@@ -42,7 +42,7 @@ func draw_vector(vector: Vector2, color: Color):
 
 	# draw arrow head lines
 	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
-	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
+	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(-VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
 
 	draw_set_transform(Vector2.ZERO)
 
