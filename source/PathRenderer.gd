@@ -1,7 +1,7 @@
 @tool
 extends BasePoint
 
-class_name PathGenerator
+class_name PathRenderer
 
 @export var range_radius: float = 100
 @export var range_color: Color = Color.LIGHT_BLUE
@@ -13,7 +13,7 @@ const VECTOR_HEAD_ANGLE = PI / 3
 
 @export var draw_steps = 5
 
-func get_initial_2d_velocity_from(starting_point: Point) -> Vector2:
+func get_initial_2d_velocity_from(starting_point: PathPoint) -> Vector2:
 	return global_position - starting_point.global_position
 
 func get_height_at(time: float, initial_velocity: float) -> float:
@@ -35,6 +35,21 @@ func get_travel_time(start_height: float, end_height: float, initial_velocity: V
 
 	return time
 
+func draw_trajectory(start_position: Vector2, end_height: float, initial_velocity: Vector2, path_color: Color):
+	var time = get_travel_time(start_position.y, end_height, initial_velocity)
+	var points: Array[Vector2] = []
+
+	for step in range(draw_steps):
+		var time_per_step = time / draw_steps
+		var current_time = step * time_per_step
+
+		points.append(Vector2(current_time * initial_velocity.x, get_height_at(current_time, initial_velocity.y)))
+
+	points.append(Vector2(time * initial_velocity.x, get_height_at(time, initial_velocity.y)))
+
+	draw_polyline(points, path_color, 2, true)
+
+
 func draw_vector(vector: Vector2, color: Color):
 	draw_set_transform(Vector2.ZERO, vector.angle())
 
@@ -48,12 +63,9 @@ func draw_vector(vector: Vector2, color: Color):
 
 	draw_set_transform(Vector2.ZERO)
 
-func _ready() -> void:
-	super._ready()
-
 func _input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
-		event
+		pass
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -63,27 +75,14 @@ func _draw():
 	draw_circle(Vector2(), range_radius, range_color)
 
 	for child in get_children():
-		if child is Point:
-			var initial_velocity = get_initial_2d_velocity_from(child)
-
+		if child is PathPoint:
 			draw_line(Vector2(), child.position, child.connector_color, 2, true)
-			draw_vector(initial_velocity, Color.ROYAL_BLUE)
 
 			var start_position = position
-			var end_position = $"../ground".position
+			var end_height = $"../ground".position.y
+			var initial_velocity = get_initial_2d_velocity_from(child)
 
-			var time = get_travel_time(start_position.y, end_position.y, initial_velocity)
-
-			var points: Array[Vector2] = []
-
-			for step in range(draw_steps):
-				var time_per_step = time / draw_steps
-				var current_time = step * time_per_step
-
-				points.append(Vector2(current_time * initial_velocity.x, get_height_at(current_time, initial_velocity.y)))
-
-			points.append(Vector2(time * initial_velocity.x, get_height_at(time, initial_velocity.y)))
-
-			draw_polyline(points, Color.RED, 2, true)
+			draw_trajectory(start_position, end_height, initial_velocity, child.path_color)
+			draw_vector(initial_velocity, child.connector_color)
 
 	super._draw()

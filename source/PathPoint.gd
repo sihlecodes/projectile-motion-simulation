@@ -1,9 +1,10 @@
 @tool
 extends BasePoint
 
-class_name Point
+class_name PathPoint
 
 @export var connector_color: Color = Color.CORNFLOWER_BLUE
+@export var path_color: Color = Color.DEEP_SKY_BLUE
 
 func _process(delta: float) -> void:
 	var circumference_point = position.normalized() * get_parent().range_radius

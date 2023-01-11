@@ -3,10 +3,9 @@ extends Node2D
 class_name BasePoint
 
 const DRAG_RADIUS: float = 1000
-const RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
+const DRAG_RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
 
 @export var color: Color = Color.BLACK
-
 @export var radius: float = 8:
 	set(_radius):
 		radius = _radius
@@ -15,7 +14,7 @@ const RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
 var shape_radius: float:
 	set(radius):
 		if $area/shape and $area/shape.shape:
-			$area/shape.shape.radius = radius + RADIUS_BUFFER
+			$area/shape.shape.radius = radius + DRAG_RADIUS_BUFFER
 
 var disabled: bool:
 	get:
@@ -55,7 +54,5 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		if disabled:
 			return
 
-		var camera = get_viewport().get_camera_2d()
-
-		position += event.relative / camera.zoom
+		position += event.relative / get_viewport().get_camera_2d().zoom
 

@@ -12,28 +12,28 @@ _global_script_classes=[{
 "base": "Node2D",
 "class": &"BasePoint",
 "language": &"GDScript",
-"path": "res://BasePoint.gd"
+"path": "res://source/BasePoint.gd"
 }, {
 "base": "Line2D",
 "class": &"Ground",
 "language": &"GDScript",
-"path": "res://Ground.gd"
+"path": "res://source/Ground.gd"
 }, {
 "base": "BasePoint",
-"class": &"PathGenerator",
+"class": &"PathPoint",
 "language": &"GDScript",
-"path": "res://PathGenerator.gd"
+"path": "res://source/PathPoint.gd"
 }, {
 "base": "BasePoint",
-"class": &"Point",
+"class": &"PathRenderer",
 "language": &"GDScript",
-"path": "res://PathPoint.gd"
+"path": "res://source/PathRenderer.gd"
 }]
 _global_script_class_icons={
 "BasePoint": "",
 "Ground": "",
-"PathGenerator": "",
-"Point": ""
+"PathPoint": "",
+"PathRenderer": ""
 }
 
 [application]
@@ -45,13 +45,13 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Points="*res://Points.gd"
+Points="*res://source/Points.gd"
 
 [display]
 
 window/size/viewport_width=1200
 window/size/viewport_height=780
-window/stretch/mode="canvas_items"
+window/size/always_on_top=true
 
 [input]
 
@@ -73,4 +73,5 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
-anti_aliasing/quality/msaa_2d=1
+anti_aliasing/quality/use_taa=true
+anti_aliasing/quality/use_debanding=true

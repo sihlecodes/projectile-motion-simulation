@@ -1,25 +1,67 @@
-[gd_scene load_steps=5 format=3 uid="uid://di0dphumvic0q"]
+[gd_scene load_steps=6 format=3 uid="uid://ccxyffhiaamv"]
 
-[ext_resource type="Script" path="res://Main.gd" id="1_6a03t"]
-[ext_resource type="PackedScene" uid="uid://dd1i7wo27rk8g" path="res://PathGenerator.tscn" id="1_h1utn"]
-[ext_resource type="PackedScene" uid="uid://cmablgywjy0g3" path="res://PathPoint.tscn" id="2_bbkw6"]
-[ext_resource type="Script" path="res://Ground.gd" id="3_fe7y5"]
+[ext_resource type="Script" path="res://source/Main.gd" id="1_an6s0"]
+[ext_resource type="Script" path="res://source/Ground.gd" id="2_vgwyk"]
+[ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/PathRenderer.tscn" id="2_x1ih8"]
+[ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/PathPoint.tscn" id="3_5e8d8"]
+
+[sub_resource type="Theme" id="Theme_a4itc"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_6a03t")
+script = ExtResource("1_an6s0")
 
-[node name="PathGenerator" parent="." instance=ExtResource("1_h1utn")]
-position = Vector2(617, 282)
+[node name="PathRenderer" parent="." instance=ExtResource("2_x1ih8")]
 draw_steps = 50
 
-[node name="PathPoint" parent="PathGenerator" instance=ExtResource("2_bbkw6")]
-position = Vector2(26, 43)
+[node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
+position = Vector2(48, 48)
 
 [node name="ground" type="Line2D" parent="."]
-position = Vector2(5, 405)
-points = PackedVector2Array(0, 0, 1152, 0)
-script = ExtResource("3_fe7y5")
+position = Vector2(-600, 200)
+points = PackedVector2Array(0, 0, 1200, 0)
+script = ExtResource("2_vgwyk")
 
 [node name="camera" type="Camera2D" parent="."]
-position = Vector2(600, 390)
 current = true
+metadata/_edit_lock_ = true
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="container" type="MarginContainer" parent="ui"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_a4itc")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="ui/container"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
+text = "hint: you can click and drag the nodes to move them around"
+
+[node name="buttons" type="VBoxContainer" parent="ui/container"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+metadata/_edit_use_anchors_ = true
+metadata/_edit_group_ = true
+
+[node name="reset" type="Button" parent="ui/container/buttons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Reset position"
+
+[node name="clear" type="Button" parent="ui/container/buttons"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+text = "Clear points"
+
+[connection signal="pressed" from="ui/container/buttons/reset" to="." method="_on_reset_pressed"]

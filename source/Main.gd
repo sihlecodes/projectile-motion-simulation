@@ -12,3 +12,10 @@ func _input(event: InputEvent) -> void:
 		# i.e. it's safe to change the offset
 		if Points.all_enabled():
 			$camera.offset -= event.relative / $camera.zoom
+
+
+func _on_reset_pressed() -> void:
+	$camera.offset = Vector2()
+	$camera.zoom = Vector2.ONE
+
+	$PathRenderer.position = Vector2()
