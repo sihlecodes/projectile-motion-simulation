@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name Point
+class_name BasePoint
 
 const DRAG_RADIUS: float = 1000
 const RADIUS_BUFFER: float = 1 # makes it slightly easier to grab nodes

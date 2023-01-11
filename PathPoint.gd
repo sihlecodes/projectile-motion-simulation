@@ -1,7 +1,7 @@
 @tool
-extends Point
+extends BasePoint
 
-class_name Positioner
+class_name Point
 
 @export var connector_color: Color = Color.CORNFLOWER_BLUE
 

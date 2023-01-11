@@ -9,36 +9,36 @@
 config_version=5
 
 _global_script_classes=[{
+"base": "Node2D",
+"class": &"BasePoint",
+"language": &"GDScript",
+"path": "res://BasePoint.gd"
+}, {
 "base": "Line2D",
 "class": &"Ground",
 "language": &"GDScript",
 "path": "res://Ground.gd"
 }, {
-"base": "Point",
-"class": &"Launcher",
+"base": "BasePoint",
+"class": &"PathGenerator",
 "language": &"GDScript",
-"path": "res://Launcher.gd"
+"path": "res://PathGenerator.gd"
 }, {
-"base": "Node2D",
+"base": "BasePoint",
 "class": &"Point",
 "language": &"GDScript",
-"path": "res://Point.gd"
-}, {
-"base": "Point",
-"class": &"Positioner",
-"language": &"GDScript",
-"path": "res://Positioner.gd"
+"path": "res://PathPoint.gd"
 }]
 _global_script_class_icons={
+"BasePoint": "",
 "Ground": "",
-"Launcher": "",
-"Point": "",
-"Positioner": ""
+"PathGenerator": "",
+"Point": ""
 }
 
 [application]
 
-config/name="ProjectileMotionSimulation"
+config/name="Projectile Motion Simulation"
 run/main_scene="res://Main.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://icon.svg"

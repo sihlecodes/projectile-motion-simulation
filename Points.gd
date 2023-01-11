@@ -10,6 +10,6 @@ func disable() -> void:
 func enable() -> void:
 	do(func(node): node.enable())
 
-func disable_all_except(node: Point) -> void:
+func disable_all_except(node: BasePoint) -> void:
 	disable()
 	node.enable()

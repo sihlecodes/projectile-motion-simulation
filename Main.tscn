@@ -1,26 +1,21 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgdpdgqbxlnfu"]
+[gd_scene load_steps=5 format=3 uid="uid://di0dphumvic0q"]
 
-[ext_resource type="Script" path="res://Launcher.gd" id="1_4y0x0"]
-[ext_resource type="Script" path="res://Positioner.gd" id="2_p10c2"]
-[ext_resource type="PackedScene" uid="uid://cvlpph2b12vui" path="res://Point.tscn" id="2_qrun5"]
+[ext_resource type="Script" path="res://Main.gd" id="1_6a03t"]
+[ext_resource type="PackedScene" uid="uid://dd1i7wo27rk8g" path="res://PathGenerator.tscn" id="1_h1utn"]
+[ext_resource type="PackedScene" uid="uid://cmablgywjy0g3" path="res://PathPoint.tscn" id="2_bbkw6"]
 [ext_resource type="Script" path="res://Ground.gd" id="3_fe7y5"]
 
 [node name="Main" type="Node"]
+script = ExtResource("1_6a03t")
 
-[node name="Launcher" parent="." instance=ExtResource("2_qrun5")]
-position = Vector2(561, 350)
-script = ExtResource("1_4y0x0")
-range_radius = 100.0
-range_color = Color(0.678431, 0.847059, 0.901961, 1)
-draw_steps = 5
-color = Color(0.960784, 0.360784, 0.364706, 1)
+[node name="PathGenerator" parent="." instance=ExtResource("1_h1utn")]
+position = Vector2(545, 294)
+draw_steps = 50
 
-[node name="Positioner" parent="Launcher" instance=ExtResource("2_qrun5")]
-position = Vector2(-46, 76)
-script = ExtResource("2_p10c2")
-connector_color = Color(0.392157, 0.584314, 0.929412, 1)
+[node name="PathPoint" parent="PathGenerator" instance=ExtResource("2_bbkw6")]
+position = Vector2(44, 45)
 
 [node name="Ground" type="Line2D" parent="."]
-position = Vector2(-1, 450)
+position = Vector2(5, 405)
 points = PackedVector2Array(0, 0, 1152, 0)
 script = ExtResource("3_fe7y5")

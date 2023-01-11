@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmablgywjy0g3"]
+
+[ext_resource type="PackedScene" uid="uid://bjkf87eldsavs" path="res://BasePoint.tscn" id="1_qypbw"]
+[ext_resource type="Script" path="res://PathPoint.gd" id="2_ipneb"]
+
+[node name="PathPoint" instance=ExtResource("1_qypbw")]
+script = ExtResource("2_ipneb")
+connector_color = Color(0.392157, 0.584314, 0.929412, 1)
+color = Color(0, 0, 0, 1)
+radius = 8.0
