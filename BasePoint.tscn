@@ -4,8 +4,6 @@
 
 [node name="Point" type="Node2D" groups=["points"]]
 script = ExtResource("1_cc7ev")
-color = null
-radius = null
 
 [node name="area" type="Area2D" parent="."]
 

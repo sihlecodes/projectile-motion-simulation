@@ -57,7 +57,7 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	position.y = clamp(position.y, 0, $"../Ground".position.y - radius * 2)
+	position.y = clamp(position.y, -INF, $"../ground".position.y - radius * 2)
 
 func _draw():
 	draw_circle(Vector2(), range_radius, range_color)
@@ -70,7 +70,7 @@ func _draw():
 			draw_vector(initial_velocity, Color.ROYAL_BLUE)
 
 			var start_position = position
-			var end_position = $"../Ground".position
+			var end_position = $"../ground".position
 
 			var time = get_travel_time(start_position.y, end_position.y, initial_velocity)
 

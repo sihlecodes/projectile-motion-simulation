@@ -9,13 +9,17 @@
 script = ExtResource("1_6a03t")
 
 [node name="PathGenerator" parent="." instance=ExtResource("1_h1utn")]
-position = Vector2(545, 294)
+position = Vector2(617, 282)
 draw_steps = 50
 
 [node name="PathPoint" parent="PathGenerator" instance=ExtResource("2_bbkw6")]
-position = Vector2(44, 45)
+position = Vector2(26, 43)
 
-[node name="Ground" type="Line2D" parent="."]
+[node name="ground" type="Line2D" parent="."]
 position = Vector2(5, 405)
 points = PackedVector2Array(0, 0, 1152, 0)
 script = ExtResource("3_fe7y5")
+
+[node name="camera" type="Camera2D" parent="."]
+position = Vector2(600, 390)
+current = true

@@ -3,7 +3,7 @@ extends Node2D
 class_name BasePoint
 
 const DRAG_RADIUS: float = 1000
-const RADIUS_BUFFER: float = 1 # makes it slightly easier to grab nodes
+const RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
 
 @export var color: Color = Color.BLACK
 
@@ -13,22 +13,22 @@ const RADIUS_BUFFER: float = 1 # makes it slightly easier to grab nodes
 		shape_radius = radius
 
 var shape_radius: float:
-	get:
-		if $area/shape and $area/shape.shape:
-			return $area/shape.shape.radius - RADIUS_BUFFER
-		return radius
 	set(radius):
 		if $area/shape and $area/shape.shape:
 			$area/shape.shape.radius = radius + RADIUS_BUFFER
 
-func set_disabled(disabled: bool) -> void:
-	$area/shape.disabled = disabled
+var disabled: bool:
+	get:
+		return $area/shape.disabled
+
+	set(disabled):
+		$area/shape.disabled = disabled
 
 func disable() -> void:
-	set_disabled(true)
+	disabled = true
 
 func enable() -> void:
-	set_disabled(false)
+	disabled = false
 
 func _ready() -> void:
 	$area/shape.shape = CircleShape2D.new()
@@ -52,14 +52,10 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 			Points.enable()
 
 	if event is InputEventScreenDrag:
-		if shape_radius != DRAG_RADIUS:
+		if disabled:
 			return
 
-		var current_position = event.position
-		var parent = get_parent()
+		var camera = get_viewport().get_camera_2d()
 
-		if parent is Node2D:
-			current_position = parent.to_local(event.position)
-
-		position = current_position
+		position += event.relative / camera.zoom
 
