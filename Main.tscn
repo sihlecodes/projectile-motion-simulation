@@ -17,13 +17,12 @@ draw_steps = 50
 position = Vector2(48, 48)
 
 [node name="ground" type="Line2D" parent="."]
-position = Vector2(-600, 200)
-points = PackedVector2Array(0, 0, 1200, 0)
+position = Vector2(0, 100)
+points = PackedVector2Array(-600, 0, 600, 0)
 script = ExtResource("2_vgwyk")
 
 [node name="camera" type="Camera2D" parent="."]
 current = true
-metadata/_edit_lock_ = true
 
 [node name="ui" type="CanvasLayer" parent="."]
 
@@ -37,7 +36,6 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
-metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="ui/container"]
 layout_mode = 2
