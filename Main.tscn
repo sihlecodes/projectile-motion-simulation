@@ -18,7 +18,7 @@ position = Vector2(48, 48)
 
 [node name="ground" type="Line2D" parent="."]
 position = Vector2(0, 100)
-points = PackedVector2Array(-600, 0, 600, 0)
+points = PackedVector2Array(-650, 0, 650, 0)
 script = ExtResource("2_vgwyk")
 
 [node name="camera" type="Camera2D" parent="."]
