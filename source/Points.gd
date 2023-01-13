@@ -12,12 +12,12 @@ func all_enabled():
 				return false
 	return true
 
-func disable() -> void:
+func disable_all() -> void:
 	do(func(node): node.disable())
 
-func enable() -> void:
+func enable_all() -> void:
 	do(func(node): node.enable())
 
 func disable_all_except(node: BasePoint) -> void:
-	disable()
+	disable_all()
 	node.enable()

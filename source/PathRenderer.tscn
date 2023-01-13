@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bjkf87eldsavs" path="res://source/BasePoint.tscn" id="1_p52pf"]
 [ext_resource type="Script" path="res://source/PathRenderer.gd" id="2_h2cxl"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bklci"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_wgdun"]
 
 [node name="PathRenderer" instance=ExtResource("1_p52pf")]
 script = ExtResource("2_h2cxl")
@@ -12,4 +12,4 @@ range_color = Color(0.678431, 0.847059, 0.901961, 1)
 draw_steps = 5
 
 [node name="shape" parent="area" index="0"]
-shape = SubResource("CircleShape2D_bklci")
+shape = SubResource("CircleShape2D_wgdun")

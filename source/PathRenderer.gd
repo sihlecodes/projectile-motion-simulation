@@ -47,7 +47,7 @@ func draw_trajectory(start_position: Vector2, end_height: float, initial_velocit
 
 	points.append(Vector2(time * initial_velocity.x, get_height_at(time, initial_velocity.y)))
 
-	draw_polyline(points, path_color, 2, true)
+	draw_polyline(points, path_color, 1, true)
 
 
 func draw_vector(vector: Vector2, color: Color):
@@ -63,9 +63,10 @@ func draw_vector(vector: Vector2, color: Color):
 
 	draw_set_transform(Vector2.ZERO)
 
-func _input(event: InputEvent) -> void:
+func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	super._on_area_input_event(_viewport, event, _shape_idx)
 	if event is InputEventScreenDrag:
-		pass
+		print(event)
 
 func _process(delta: float) -> void:
 	super._process(delta)

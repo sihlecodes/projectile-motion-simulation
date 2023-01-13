@@ -46,9 +46,10 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 			# ensures that dragging doesn't stop if the mouse leaves the points radius
 			shape_radius = DRAG_RADIUS
 			Points.disable_all_except(self)
+			pass
 		else:
 			shape_radius = radius
-			Points.enable()
+			Points.enable_all()
 
 	if event is InputEventScreenDrag:
 		if disabled:
