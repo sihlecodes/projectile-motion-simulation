@@ -21,18 +21,14 @@ draw_steps = 50
 
 [node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(48, 48)
-connector_color = Color(0.392157, 0.584314, 0.929412, 1)
-path_color = Color(0, 0.74902, 1, 1)
+connector_color = Color(0.2, 0.278431, 0.423529, 1)
+path_color = Color(0.980392, 0.498039, 0.34902, 1)
 
 [node name="PathPoint2" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(48, 48)
-connector_color = Color(0.392157, 0.584314, 0.929412, 1)
-path_color = Color(0, 0.74902, 1, 1)
 
 [node name="PathPoint3" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(48, 48)
-connector_color = Color(0.392157, 0.584314, 0.929412, 1)
-path_color = Color(0, 0.74902, 1, 1)
 
 [node name="camera" type="Camera2D" parent="."]
 current = true
@@ -65,33 +61,31 @@ size_flags_vertical = 0
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="ui/container/buttons"]
+[node name="GridContainer" type="GridContainer" parent="ui/container/buttons"]
 layout_mode = 2
-mouse_filter = 0
+columns = 2
 
-[node name="Label" type="Label" parent="ui/container/buttons/HBoxContainer2"]
+[node name="Label" type="Label" parent="ui/container/buttons/GridContainer"]
 layout_mode = 2
-text = "Range"
-horizontal_alignment = 1
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Max Range"
 
-[node name="HSlider" type="HSlider" parent="ui/container/buttons/HBoxContainer2"]
+[node name="HSlider" type="HSlider" parent="ui/container/buttons/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+value = 50.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="ui/container/buttons"]
+[node name="Label2" type="Label" parent="ui/container/buttons/GridContainer"]
 layout_mode = 2
-mouse_filter = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Render Steps"
 
-[node name="Label" type="Label" parent="ui/container/buttons/HBoxContainer3"]
-layout_mode = 2
-text = "Range"
-horizontal_alignment = 1
-
-[node name="HSlider" type="HSlider" parent="ui/container/buttons/HBoxContainer3"]
+[node name="HSlider2" type="HSlider" parent="ui/container/buttons/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
+value = 50.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ui/container/buttons"]
 layout_mode = 2
