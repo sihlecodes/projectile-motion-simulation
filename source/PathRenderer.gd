@@ -13,6 +13,8 @@ const VECTOR_HEAD_ANGLE = PI / 3
 
 @export var draw_steps = 5
 
+const MIN_DRAW_STEPS = 5
+
 func get_initial_2d_velocity_from(starting_point: PathPoint) -> Vector2:
 	return global_position - starting_point.global_position
 

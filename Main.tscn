@@ -17,18 +17,17 @@ script = ExtResource("2_vgwyk")
 
 [node name="PathRenderer" parent="." instance=ExtResource("2_x1ih8")]
 range_color = Color(0.6734, 0.69782, 0.74, 0.498039)
-draw_steps = 50
 
 [node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(48, 48)
+position = Vector2(92.7951, 37.2702)
 connector_color = Color(0.2, 0.278431, 0.423529, 1)
 path_color = Color(0.980392, 0.498039, 0.34902, 1)
 
 [node name="PathPoint2" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(48, 48)
+position = Vector2(27, 54)
 
 [node name="PathPoint3" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(48, 48)
+position = Vector2(63, 49)
 
 [node name="camera" type="Camera2D" parent="."]
 current = true
@@ -36,70 +35,76 @@ current = true
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="container" type="MarginContainer" parent="ui"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_a4itc")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="ui/container"]
+[node name="hint" type="Label" parent="ui/container"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-theme_override_colors/font_color = Color(0.709804, 0.709804, 0.709804, 1)
+theme_override_colors/font_color = Color(0.494118, 0.494118, 0.494118, 1)
 text = "hint: you can click and drag the nodes to move them around"
 
-[node name="buttons" type="VBoxContainer" parent="ui/container"]
+[node name="column" type="VBoxContainer" parent="ui/container"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_constants/separation = 10
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
-[node name="GridContainer" type="GridContainer" parent="ui/container/buttons"]
+[node name="grid" type="GridContainer" parent="ui/container/column"]
 layout_mode = 2
-columns = 2
 
-[node name="Label" type="Label" parent="ui/container/buttons/GridContainer"]
+[node name="range_label" type="Label" parent="ui/container/column/grid"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Max Range"
+text = "Additional Range"
 
-[node name="HSlider" type="HSlider" parent="ui/container/buttons/GridContainer"]
+[node name="range_slider" type="HSlider" parent="ui/container/column/grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-value = 50.0
 
-[node name="Label2" type="Label" parent="ui/container/buttons/GridContainer"]
+[node name="steps_label" type="Label" parent="ui/container/column/grid"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Render Steps"
+text = "Additional Render Steps"
 
-[node name="HSlider2" type="HSlider" parent="ui/container/buttons/GridContainer"]
+[node name="steps_slider" type="HSlider" parent="ui/container/column/grid"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
-value = 50.0
+min_value = 1.0
+max_value = 30.0
+value = 1.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ui/container/buttons"]
+[node name="row" type="HBoxContainer" parent="ui/container/column"]
 layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="reset" type="Button" parent="ui/container/buttons/HBoxContainer"]
+[node name="reset" type="Button" parent="ui/container/column/row"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Reset position"
 
-[node name="clear" type="Button" parent="ui/container/buttons/HBoxContainer"]
+[node name="clear" type="Button" parent="ui/container/column/row"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Clear points"
 
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
-[connection signal="pressed" from="ui/container/buttons/HBoxContainer/reset" to="." method="_on_reset_pressed"]
-[connection signal="pressed" from="ui/container/buttons/HBoxContainer/clear" to="." method="_on_clear_pressed"]
+[connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]
+[connection signal="value_changed" from="ui/container/column/grid/steps_slider" to="." method="_on_steps_slider_value_changed"]
+[connection signal="pressed" from="ui/container/column/row/reset" to="." method="_on_reset_pressed"]
+[connection signal="pressed" from="ui/container/column/row/clear" to="." method="_on_clear_pressed"]
