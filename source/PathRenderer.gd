@@ -3,10 +3,13 @@ extends BasePoint
 
 class_name PathRenderer
 
-@export var range_radius: float = 100
+const MAX_ADDITIONAL_RANGE = 100
+const MIN_RANGE_RADIUS = 100
+
+@export var range_radius: float = MIN_RANGE_RADIUS
 @export var range_color: Color = Color.LIGHT_BLUE
 
-const GRAVITY: float = 9.8
+const GRAVITY = 9.8
 const VECTOR_LINE_WIDTH = 2
 const VECTOR_HEAD_LENGTH = 15
 const VECTOR_HEAD_ANGLE = PI / 3
@@ -14,6 +17,9 @@ const VECTOR_HEAD_ANGLE = PI / 3
 @export var draw_steps = 5
 
 const MIN_DRAW_STEPS = 5
+
+func set_additional_range(percentage: float):
+	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
 
 func get_initial_2d_velocity_from(starting_point: PathPoint) -> Vector2:
 	return global_position - starting_point.global_position

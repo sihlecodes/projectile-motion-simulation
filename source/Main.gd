@@ -30,8 +30,7 @@ func _on_clear_pressed() -> void:
 		child.queue_free()
 
 func _on_range_slider_value_changed(value: float) -> void:
-#	$PathRenderer.
-	pass
+	$PathRenderer.set_additional_range(value)
 
 func _on_steps_slider_value_changed(value: float) -> void:
 	$PathRenderer.draw_steps = value
