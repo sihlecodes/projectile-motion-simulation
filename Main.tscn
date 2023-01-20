@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://ccxyffhiaamv"]
+[gd_scene load_steps=7 format=3 uid="uid://bodlio6p472nu"]
 
 [ext_resource type="Script" path="res://source/Main.gd" id="1_an6s0"]
 [ext_resource type="Script" path="res://source/Ground.gd" id="2_vgwyk"]
 [ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/PathRenderer.tscn" id="2_x1ih8"]
 [ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/PathPoint.tscn" id="3_5e8d8"]
+[ext_resource type="Script" path="res://source/controls.gd" id="5_fme3t"]
 
 [sub_resource type="Theme" id="Theme_a4itc"]
 
@@ -59,6 +60,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_constants/separation = 10
+script = ExtResource("5_fme3t")
 metadata/_edit_use_anchors_ = true
 metadata/_edit_group_ = true
 
@@ -103,6 +105,7 @@ layout_mode = 2
 text = "Clear points"
 
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
+[connection signal="gui_input" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_gui_input"]
 [connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]
 [connection signal="value_changed" from="ui/container/column/grid/steps_slider" to="." method="_on_steps_slider_value_changed"]
 [connection signal="pressed" from="ui/container/column/row/reset" to="." method="_on_reset_pressed"]
