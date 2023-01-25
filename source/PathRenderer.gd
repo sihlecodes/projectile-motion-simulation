@@ -62,7 +62,8 @@ func draw_trajectory(start_position: Vector2, end_height: float, initial_velocit
 
 func draw_vector_head(vector: Vector2, color: Color):
 	var get_part: = func(angle: float):
-		return Camera.unproject_vector(vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2))
+#		return Camera.unproject_vector(vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2))
+		return vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2)
 
 	var zoom_independent_width: = Camera.unproject(VECTOR_LINE_WIDTH)
 
