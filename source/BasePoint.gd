@@ -11,23 +11,18 @@ const DRAG_RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
 		radius = _radius
 		shape_radius = radius
 
+var pressed: = false
+
 var shape_radius: float:
 	set(radius):
 		if $area/shape and $area/shape.shape:
 			$area/shape.shape.radius = radius + DRAG_RADIUS_BUFFER
 
-var disabled: bool:
-	get:
-		return $area/shape.disabled
-
-	set(disabled):
-		$area/shape.disabled = disabled
-
 func disable() -> void:
-	disabled = true
+	$area/shape.disabled = true
 
 func enable() -> void:
-	disabled = false
+	$area/shape.disabled = false
 
 func _ready() -> void:
 	$area/shape.shape = CircleShape2D.new()
@@ -46,13 +41,14 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 			# ensures that dragging doesn't stop if the mouse leaves the points radius
 			shape_radius = DRAG_RADIUS
 			Points.disable_all_except(self)
-			pass
+			pressed = true
 		else:
 			shape_radius = radius
 			Points.enable_all()
+			pressed = false
 
 	if event is InputEventScreenDrag:
-		if disabled:
+		if not pressed:
 			return
 
 		position += Camera.unproject_vector(event.relative)

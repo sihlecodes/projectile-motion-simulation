@@ -23,9 +23,8 @@ func _on_container_gui_input(event: InputEvent) -> void:
 		camera.zoom *= 0.9
 
 	if event is InputEventPanGesture or event is InputEventScreenDrag:
-		# when all points are enabled it means none of them are currently being manipulated
-		# i.e. it's safe to change the offset
-		if Points.all_enabled():
+		# pan when none of the points are currently being manipulated
+		if not Points.any_pressed():
 			camera.offset -= Camera.unproject_vector(event.relative)
 
 

@@ -74,18 +74,11 @@ func draw_vector(vector: Vector2, color: Color):
 	draw_line(Vector2(), vector, color, Camera.unproject(VECTOR_LINE_WIDTH), true)
 	draw_vector_head(vector, color)
 
-var modifiers = {
-	shift = false,
-	control = false,
-	alt = false
-}
-
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	super._on_area_input_event(_viewport, event, _shape_idx)
-
-	if event is InputEventScreenDrag:
-#		print(event)
-		print(event.pressure)
+	if Input.is_action_pressed("create_node"):
+		pass
+	else:
+		super._on_area_input_event(_viewport, event, _shape_idx)
 
 func _process(delta: float) -> void:
 	super._process(delta)
