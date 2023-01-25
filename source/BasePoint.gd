@@ -55,5 +55,5 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		if disabled:
 			return
 
-		position += event.relative / get_viewport().get_camera_2d().zoom
+		position += Camera.unproject_vector(event.relative)
 

@@ -1,4 +1,3 @@
-@tool
 extends BasePoint
 
 class_name PathRenderer
@@ -14,9 +13,13 @@ const VECTOR_LINE_WIDTH = 2
 const VECTOR_HEAD_LENGTH = 15
 const VECTOR_HEAD_ANGLE = PI / 3
 
+const TRAJECTORY_LINE_WIDTH = 1
+
 @export var draw_steps = 5
 
 const MIN_DRAW_STEPS = 5
+
+@onready var ground: = $"../ground"
 
 func set_additional_range(percentage: float):
 	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
@@ -55,40 +58,50 @@ func draw_trajectory(start_position: Vector2, end_height: float, initial_velocit
 
 	points.append(Vector2(time * initial_velocity.x, get_height_at(time, initial_velocity.y)))
 
-	draw_polyline(points, path_color, 1, true)
+	draw_polyline(points, path_color, Camera.unproject(TRAJECTORY_LINE_WIDTH), true)
 
+func draw_vector_head(vector: Vector2, color: Color):
+	var get_part: = func(angle: float):
+		return Camera.unproject_vector(vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2))
+
+	var zoom_independent_width: = Camera.unproject(VECTOR_LINE_WIDTH)
+
+	draw_line(vector, get_part.call(VECTOR_HEAD_ANGLE), color, zoom_independent_width, true)
+	draw_line(vector, get_part.call(-VECTOR_HEAD_ANGLE), color, zoom_independent_width, true)
 
 func draw_vector(vector: Vector2, color: Color):
-	draw_set_transform(Vector2.ZERO, vector.angle())
+	draw_line(Vector2(), vector, color, Camera.unproject(VECTOR_LINE_WIDTH), true)
+	draw_vector_head(vector, color)
 
-	var line_end = Vector2.RIGHT * vector.length()
-	# draw body line
-	draw_line(Vector2(), line_end, color, VECTOR_LINE_WIDTH, true)
-
-	# draw arrow head lines
-	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
-	draw_line(line_end, line_end - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(-VECTOR_HEAD_ANGLE/2), color, VECTOR_LINE_WIDTH, true)
-
-	draw_set_transform(Vector2.ZERO)
+var modifiers = {
+	shift = false,
+	control = false,
+	alt = false
+}
 
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	super._on_area_input_event(_viewport, event, _shape_idx)
+
 	if event is InputEventScreenDrag:
 		print(event)
 
 func _process(delta: float) -> void:
 	super._process(delta)
-	position.y = clamp(position.y, -INF, $"../ground".position.y - radius * 2)
+
+	if ground != null:
+		position.y = clamp(position.y, -INF, ground.position.y - radius * 2)
 
 func _draw():
 	draw_circle(Vector2(), range_radius, range_color)
 
 	for child in get_children():
 		if child is PathPoint:
-			draw_line(Vector2(), child.position, child.connector_color, 2, true)
+			draw_line(Vector2(),
+				child.position,
+				child.connector_color, Camera.unproject(VECTOR_LINE_WIDTH), true)
 
 			var start_position = position
-			var end_height = $"../ground".position.y
+			var end_height = ground.position.y
 			var initial_velocity = get_initial_2d_velocity_from(child)
 
 			draw_trajectory(start_position, end_height, initial_velocity, child.path_color)

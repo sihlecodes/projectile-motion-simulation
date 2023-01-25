@@ -1,4 +1,3 @@
-@tool
 extends BasePoint
 
 class_name PathPoint

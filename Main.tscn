@@ -105,7 +105,6 @@ layout_mode = 2
 text = "Clear points"
 
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
-[connection signal="gui_input" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_gui_input"]
 [connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]
 [connection signal="value_changed" from="ui/container/column/grid/steps_slider" to="." method="_on_steps_slider_value_changed"]
 [connection signal="pressed" from="ui/container/column/row/reset" to="." method="_on_reset_pressed"]
