@@ -75,6 +75,6 @@ pointing/emulate_touch_from_mouse=true
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
-environment/defaults/default_clear_color=Color(0.854902, 0.854902, 0.854902, 1)
+environment/defaults/default_clear_color=Color(0.901961, 0.901961, 0.901961, 1)
 anti_aliasing/quality/use_taa=true
 anti_aliasing/quality/use_debanding=true

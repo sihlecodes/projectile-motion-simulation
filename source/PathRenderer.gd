@@ -84,7 +84,8 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 	super._on_area_input_event(_viewport, event, _shape_idx)
 
 	if event is InputEventScreenDrag:
-		print(event)
+#		print(event)
+		print(event.pressure)
 
 func _process(delta: float) -> void:
 	super._process(delta)
