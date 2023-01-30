@@ -5,5 +5,5 @@ extends Node
 func unproject_vector(vector: Vector2) -> Vector2:
 	return vector / camera.zoom
 
-func unproject(size: float) -> float:
+func unproject_scalar(size: float) -> float:
 	return size / camera.zoom.x

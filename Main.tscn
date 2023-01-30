@@ -13,11 +13,15 @@ script = ExtResource("1_an6s0")
 
 [node name="ground" type="Line2D" parent="."]
 position = Vector2(0, 100)
-points = PackedVector2Array(-650, 0, 650, 0)
+points = PackedVector2Array(-656.5, 0, 656.5, 0)
 script = ExtResource("2_vgwyk")
 
 [node name="PathRenderer" parent="." instance=ExtResource("2_x1ih8")]
+range_radius = 100.0
 range_color = Color(0.6734, 0.69782, 0.74, 0.498039)
+draw_steps = 100
+color = Color(0, 0, 0, 1)
+radius = 8.0
 
 [node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(92.7951, 37.2702)
@@ -80,7 +84,7 @@ size_flags_vertical = 1
 [node name="steps_label" type="Label" parent="ui/container/column/grid"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "Additional Render Steps"
+text = "Render Steps"
 
 [node name="steps_slider" type="HSlider" parent="ui/container/column/grid"]
 layout_mode = 2

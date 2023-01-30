@@ -24,6 +24,14 @@ func disable() -> void:
 func enable() -> void:
 	$area/shape.disabled = false
 
+func activate_exclusively(activated: = true) -> void:
+	shape_radius = DRAG_RADIUS if activated else radius
+
+	if activated:
+		Points.disable_all_except(self)
+	else:
+		Points.enable_all()
+
 func _ready() -> void:
 	$area/shape.shape = CircleShape2D.new()
 	shape_radius = radius
@@ -36,20 +44,11 @@ func _draw() -> void:
 
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventScreenTouch:
-		if event.is_pressed():
-			# increase the collision circle radius while dragging
-			# ensures that dragging doesn't stop if the mouse leaves the points radius
-			shape_radius = DRAG_RADIUS
-			Points.disable_all_except(self)
-			pressed = true
-		else:
-			shape_radius = radius
-			Points.enable_all()
-			pressed = false
+		pressed = event.is_pressed()
+		activate_exclusively(pressed)
 
 	if event is InputEventScreenDrag:
 		if not pressed:
 			return
 
 		position += Camera.unproject_vector(event.relative)
-

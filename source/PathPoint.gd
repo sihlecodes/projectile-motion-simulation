@@ -18,4 +18,5 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		if event is InputEventScreenTouch:
 			queue_free()
 	else:
+		get_parent().move_child(self, -1)
 		super._on_area_input_event(_viewport, event, _shape_idx)

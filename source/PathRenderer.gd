@@ -17,7 +17,7 @@ const TRAJECTORY_LINE_WIDTH = 1
 
 @export var draw_steps = 5
 
-const MIN_DRAW_STEPS = 5
+const MIN_DRAW_STEPS = 100
 
 @onready var ground: = $"../ground"
 
@@ -58,27 +58,53 @@ func draw_trajectory(start_position: Vector2, end_height: float, initial_velocit
 
 	points.append(Vector2(time * initial_velocity.x, get_height_at(time, initial_velocity.y)))
 
-	draw_polyline(points, path_color, Camera.unproject(TRAJECTORY_LINE_WIDTH), true)
+	draw_polyline(points, path_color, Camera.unproject_scalar(TRAJECTORY_LINE_WIDTH), true)
 
 func draw_vector_head(vector: Vector2, color: Color):
 	var get_part: = func(angle: float):
 #		return Camera.unproject_vector(vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2))
 		return vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2)
 
-	var zoom_independent_width: = Camera.unproject(VECTOR_LINE_WIDTH)
+	var zoom_independent_width: = Camera.unproject_scalar(VECTOR_LINE_WIDTH)
 
 	draw_line(vector, get_part.call(VECTOR_HEAD_ANGLE), color, zoom_independent_width, true)
 	draw_line(vector, get_part.call(-VECTOR_HEAD_ANGLE), color, zoom_independent_width, true)
 
 func draw_vector(vector: Vector2, color: Color):
-	draw_line(Vector2(), vector, color, Camera.unproject(VECTOR_LINE_WIDTH), true)
+	draw_line(Vector2(), vector, color, Camera.unproject_scalar(VECTOR_LINE_WIDTH), true)
 	draw_vector_head(vector, color)
 
+var spawning_point: PathPoint = null
+
+# TODO: Fix the bug where, sometimes the currently spawning point locks and can't be released
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if Input.is_action_pressed("create_node"):
-		pass
+	var spawning: = spawning_point != null
+	var spawn_action_pressed: = Input.is_action_pressed("create_node")
+
+	if not spawning and spawn_action_pressed:
+		spawning_point = preload("res://source/PathPoint.tscn").instantiate()
+		spawning_point.disable()
+		print("created a new node")
+
+	if spawning and spawn_action_pressed:
+		if event is InputEventScreenTouch:
+			pressed = event.is_pressed()
+			activate_exclusively(pressed)
+			print("activated: ", pressed)
+
+			if not pressed:
+				spawning_point = null
+
+		if event is InputEventScreenDrag:
+			print("positioning node")
+			spawning_point.position += Camera.unproject_vector(event.relative)
+
+			if spawning_point.get_parent() == null:
+				add_child(spawning_point)
 	else:
 		super._on_area_input_event(_viewport, event, _shape_idx)
+		print("positioning parent")
+
 
 func _process(delta: float) -> void:
 	super._process(delta)
@@ -93,7 +119,7 @@ func _draw():
 		if child is PathPoint:
 			draw_line(Vector2(),
 				child.position,
-				child.connector_color, Camera.unproject(VECTOR_LINE_WIDTH), true)
+				child.connector_color, Camera.unproject_scalar(VECTOR_LINE_WIDTH), true)
 
 			var start_position = position
 			var end_height = ground.position.y

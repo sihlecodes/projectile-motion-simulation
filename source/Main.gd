@@ -27,7 +27,6 @@ func _on_container_gui_input(event: InputEvent) -> void:
 		if not Points.any_pressed():
 			camera.offset -= Camera.unproject_vector(event.relative)
 
-
 func _on_clear_pressed() -> void:
 	for child in path_renderer.get_children().slice(2):
 		child.queue_free()
