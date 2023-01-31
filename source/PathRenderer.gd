@@ -76,35 +76,32 @@ func draw_vector(vector: Vector2, color: Color):
 
 var spawning_point: PathPoint = null
 
-# TODO: Fix the bug where, sometimes the currently spawning point locks and can't be released
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	var spawning: = spawning_point != null
-	var spawn_action_pressed: = Input.is_action_pressed("create_node")
+	var create_action_pressed: = Input.is_action_pressed("create_node")
 
-	if not spawning and spawn_action_pressed:
-		spawning_point = preload("res://source/PathPoint.tscn").instantiate()
-		spawning_point.disable()
-		print("created a new node")
+	if event is InputEventScreenTouch:
+		pressed = event.is_pressed()
+		activate_exclusively(pressed)
 
-	if spawning and spawn_action_pressed:
-		if event is InputEventScreenTouch:
-			pressed = event.is_pressed()
-			activate_exclusively(pressed)
-			print("activated: ", pressed)
+		if pressed and create_action_pressed:
+			spawning_point = preload("res://source/PathPoint.tscn").instantiate()
+			spawning_point.disable()
 
-			if not pressed:
-				spawning_point = null
+		elif spawning_point and not pressed:
+			if not spawning_point.get_parent():
+				spawning_point.queue_free()
 
-		if event is InputEventScreenDrag:
-			print("positioning node")
+			spawning_point = null
+
+		else:
+			super._on_area_input_event(_viewport, event, _shape_idx)
+
+	elif event is InputEventScreenDrag:
+		if spawning_point and create_action_pressed:
+			add_child(spawning_point)
 			spawning_point.position += Camera.unproject_vector(event.relative)
-
-			if spawning_point.get_parent() == null:
-				add_child(spawning_point)
-	else:
-		super._on_area_input_event(_viewport, event, _shape_idx)
-		print("positioning parent")
-
+		else:
+			super._on_area_input_event(_viewport, event, _shape_idx)
 
 func _process(delta: float) -> void:
 	super._process(delta)
