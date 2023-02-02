@@ -21,6 +21,16 @@ const MIN_DRAW_STEPS = 100
 
 @onready var ground: = $"../ground"
 
+signal node_created
+signal node_deleted(node)
+signal node_dragged
+
+func add_child(node: Node, _force_readable_name: bool = false, _internal: int = INTERNAL_MODE_DISABLED):
+	node.deleted.connect(func(): node_deleted.emit(node))
+	super.add_child(node, _force_readable_name, _internal)
+
+	node_created.emit()
+
 func set_additional_range(percentage: float):
 	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
 
@@ -62,7 +72,6 @@ func draw_trajectory(start_position: Vector2, end_height: float, initial_velocit
 
 func draw_vector_head(vector: Vector2, color: Color):
 	var get_part: = func(angle: float):
-#		return Camera.unproject_vector(vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2))
 		return vector - (Vector2.RIGHT * VECTOR_HEAD_LENGTH).rotated(vector.angle() - angle/2)
 
 	var zoom_independent_width: = Camera.unproject_scalar(VECTOR_LINE_WIDTH)
@@ -98,7 +107,11 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 
 	elif event is InputEventScreenDrag:
 		if spawning_point and create_action_pressed:
-			add_child(spawning_point)
+			if not spawning_point.get_parent():
+				# self is so that the overwritten definition of .add_child() is used.
+				self.add_child(spawning_point)
+				node_created.emit()
+
 			spawning_point.position += Camera.unproject_vector(event.relative)
 		else:
 			super._on_area_input_event(_viewport, event, _shape_idx)

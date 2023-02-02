@@ -3,9 +3,15 @@ extends Node
 @onready var camera: = $camera
 @onready var steps_slider = $ui/container/column/grid/steps_slider
 @onready var path_renderer: = $PathRenderer
+@onready var hint_label: = $ui/container/hint
+@onready var hints: = preload("res://Hints.gd").new()
+
+func set_hint_milestone(milestone):
+	hint_label.text = "hint: " + milestone.instruction
 
 func _ready() -> void:
 	steps_slider.value = path_renderer.draw_steps
+	set_hint_milestone(hints.milestones.add)
 
 func _on_reset_pressed() -> void:
 	var animation_duration: = 0.2

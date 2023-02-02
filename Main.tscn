@@ -17,11 +17,8 @@ points = PackedVector2Array(-656.5, 0, 656.5, 0)
 script = ExtResource("2_vgwyk")
 
 [node name="PathRenderer" parent="." instance=ExtResource("2_x1ih8")]
-range_radius = 100.0
 range_color = Color(0.6734, 0.69782, 0.74, 0.498039)
 draw_steps = 100
-color = Color(0, 0, 0, 1)
-radius = 8.0
 
 [node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(92.7951, 37.2702)
@@ -50,13 +47,6 @@ theme_override_constants/margin_top = 15
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 15
 metadata/_edit_lock_ = true
-
-[node name="hint" type="Label" parent="ui/container"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme_override_colors/font_color = Color(0.494118, 0.494118, 0.494118, 1)
-text = "hint: you can click and drag the nodes to move them around"
 
 [node name="column" type="VBoxContainer" parent="ui/container"]
 custom_minimum_size = Vector2(150, 0)
@@ -108,6 +98,17 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 text = "Clear points"
 
+[node name="hint" type="RichTextLabel" parent="ui/container"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/default_color = Color(0.290196, 0.290196, 0.290196, 1)
+bbcode_enabled = true
+text = "hint: you can click and drag the nodes to move them around"
+fit_content_height = true
+
+[connection signal="node_deleted" from="PathRenderer" to="." method="_on_path_renderer_node_deleted"]
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
 [connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]
 [connection signal="value_changed" from="ui/container/column/grid/steps_slider" to="." method="_on_steps_slider_value_changed"]

@@ -5,6 +5,12 @@ class_name PathPoint
 @export var connector_color: Color = Color.CORNFLOWER_BLUE
 @export var path_color: Color = Color.DEEP_SKY_BLUE
 
+signal deleted
+signal dragged
+
+func _ready() -> void:
+	tree_exited.connect(func(): deleted.emit())
+
 func _process(delta: float) -> void:
 	var circumference_point = position.normalized() * get_parent().range_radius
 
@@ -20,3 +26,4 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 	else:
 		get_parent().move_child(self, -1)
 		super._on_area_input_event(_viewport, event, _shape_idx)
+		dragged.emit()
