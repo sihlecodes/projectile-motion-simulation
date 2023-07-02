@@ -1,6 +1,6 @@
 extends BasePoint
 
-class_name PathPoint
+class_name PathNode
 
 @export var connector_color: Color = Color.CORNFLOWER_BLUE
 @export var path_color: Color = Color.DEEP_SKY_BLUE

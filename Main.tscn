@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://source/Main.gd" id="1_an6s0"]
 [ext_resource type="Script" path="res://source/Ground.gd" id="2_vgwyk"]
 [ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/PathRenderer.tscn" id="2_x1ih8"]
-[ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/PathPoint.tscn" id="3_5e8d8"]
+[ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/PathNode.tscn" id="3_5e8d8"]
 [ext_resource type="Script" path="res://source/controls.gd" id="5_fme3t"]
 
 [sub_resource type="Theme" id="Theme_a4itc"]
@@ -32,11 +32,11 @@ position = Vector2(27, 54)
 position = Vector2(63, 49)
 
 [node name="camera" type="Camera2D" parent="."]
-current = true
 
 [node name="ui" type="CanvasLayer" parent="."]
 
 [node name="container" type="MarginContainer" parent="ui"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -106,9 +106,7 @@ size_flags_vertical = 8
 theme_override_colors/default_color = Color(0.290196, 0.290196, 0.290196, 1)
 bbcode_enabled = true
 text = "hint: you can click and drag the nodes to move them around"
-fit_content_height = true
 
-[connection signal="node_deleted" from="PathRenderer" to="." method="_on_path_renderer_node_deleted"]
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
 [connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]
 [connection signal="value_changed" from="ui/container/column/grid/steps_slider" to="." method="_on_steps_slider_value_changed"]

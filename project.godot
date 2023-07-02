@@ -8,34 +8,6 @@
 
 config_version=5
 
-_global_script_classes=[{
-"base": "Node2D",
-"class": &"BasePoint",
-"language": &"GDScript",
-"path": "res://source/BasePoint.gd"
-}, {
-"base": "Line2D",
-"class": &"Ground",
-"language": &"GDScript",
-"path": "res://source/Ground.gd"
-}, {
-"base": "BasePoint",
-"class": &"PathPoint",
-"language": &"GDScript",
-"path": "res://source/PathPoint.gd"
-}, {
-"base": "BasePoint",
-"class": &"PathRenderer",
-"language": &"GDScript",
-"path": "res://source/PathRenderer.gd"
-}]
-_global_script_class_icons={
-"BasePoint": "",
-"Ground": "",
-"PathPoint": "",
-"PathRenderer": ""
-}
-
 [application]
 
 config/name="Projectile Motion Simulation"
@@ -69,12 +41,12 @@ zoom_out={
 }
 delete_node={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 create_node={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194326,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194326,"physical_keycode":0,"key_label":0,"unicode":0,"echo":false,"script":null)
 ]
 }
 

@@ -25,16 +25,10 @@ signal node_created
 signal node_deleted(node)
 signal node_dragged
 
-func add_child(node: Node, _force_readable_name: bool = false, _internal: int = INTERNAL_MODE_DISABLED):
-	node.deleted.connect(func(): node_deleted.emit(node))
-	super.add_child(node, _force_readable_name, _internal)
-
-	node_created.emit()
-
 func set_additional_range(percentage: float):
 	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
 
-func get_initial_2d_velocity_from(starting_point: PathPoint) -> Vector2:
+func get_initial_2d_velocity_from(starting_point: PathNode) -> Vector2:
 	return global_position - starting_point.global_position
 
 func get_height_at(time: float, initial_velocity: float) -> float:
@@ -83,7 +77,12 @@ func draw_vector(vector: Vector2, color: Color):
 	draw_line(Vector2(), vector, color, Camera.unproject_scalar(VECTOR_LINE_WIDTH), true)
 	draw_vector_head(vector, color)
 
-var spawning_point: PathPoint = null
+func add_node(node: Node):
+	node.deleted.connect(func(): node_deleted.emit(node))
+	add_child(node)
+	node_created.emit()
+
+var new_node: PathNode = null
 
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	var create_action_pressed: = Input.is_action_pressed("create_node")
@@ -93,26 +92,25 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		activate_exclusively(pressed)
 
 		if pressed and create_action_pressed:
-			spawning_point = preload("res://source/PathPoint.tscn").instantiate()
-			spawning_point.disable()
+			new_node = preload("res://source/PathNode.tscn").instantiate()
+			new_node.disable()
 
-		elif spawning_point and not pressed:
-			if not spawning_point.get_parent():
-				spawning_point.queue_free()
+		elif new_node and not pressed:
+			if not new_node.get_parent():
+				new_node.queue_free()
 
-			spawning_point = null
+			new_node = null
 
 		else:
 			super._on_area_input_event(_viewport, event, _shape_idx)
 
 	elif event is InputEventScreenDrag:
-		if spawning_point and create_action_pressed:
-			if not spawning_point.get_parent():
-				# self is so that the overwritten definition of .add_child() is used.
-				self.add_child(spawning_point)
+		if new_node and create_action_pressed:
+			if not new_node.get_parent():
+				add_node(new_node)
 				node_created.emit()
 
-			spawning_point.position += Camera.unproject_vector(event.relative)
+			new_node.position += Camera.unproject_vector(event.relative)
 		else:
 			super._on_area_input_event(_viewport, event, _shape_idx)
 
@@ -126,7 +124,7 @@ func _draw():
 	draw_circle(Vector2(), range_radius, range_color)
 
 	for child in get_children():
-		if child is PathPoint:
+		if child is PathNode:
 			draw_line(Vector2(),
 				child.position,
 				child.connector_color, Camera.unproject_scalar(VECTOR_LINE_WIDTH), true)
