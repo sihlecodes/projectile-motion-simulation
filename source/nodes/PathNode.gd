@@ -1,4 +1,4 @@
-extends BasePoint
+extends BaseNode
 
 class_name PathNode
 
@@ -23,6 +23,7 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 	if Input.is_action_pressed("delete_node"):
 		if event is InputEventScreenTouch:
 			queue_free()
+			Hints.complete_milestone("delete")
 	else:
 		get_parent().move_child(self, -1)
 		super._on_area_input_event(_viewport, event, _shape_idx)

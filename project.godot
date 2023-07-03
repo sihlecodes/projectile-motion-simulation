@@ -18,8 +18,9 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-Points="*res://source/Points.gd"
+Nodes="*res://source/Nodes.gd"
 Camera="*res://source/Camera.gd"
+Hints="*res://source/Hints.gd"
 
 [display]
 

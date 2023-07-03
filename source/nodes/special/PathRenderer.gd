@@ -1,4 +1,4 @@
-extends BasePoint
+extends BaseNode
 
 class_name PathRenderer
 
@@ -24,6 +24,9 @@ const MIN_DRAW_STEPS = 100
 signal node_created
 signal node_deleted(node)
 signal node_dragged
+
+func get_nodes() -> Array:
+	return []
 
 func set_additional_range(percentage: float):
 	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
@@ -82,7 +85,7 @@ func add_node(node: Node):
 	add_child(node)
 	node_created.emit()
 
-var new_node: PathNode = null
+var current_node: PathNode = null
 
 func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	var create_action_pressed: = Input.is_action_pressed("create_node")
@@ -92,25 +95,26 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 		activate_exclusively(pressed)
 
 		if pressed and create_action_pressed:
-			new_node = preload("res://source/PathNode.tscn").instantiate()
-			new_node.disable()
+			current_node = preload("res://source/nodes/PathNode.tscn").instantiate()
+			current_node.disable()
 
-		elif new_node and not pressed:
-			if not new_node.get_parent():
-				new_node.queue_free()
+		elif current_node and not pressed:
+			if not current_node.get_parent():
+				current_node.queue_free()
 
-			new_node = null
+			current_node = null
 
 		else:
 			super._on_area_input_event(_viewport, event, _shape_idx)
 
 	elif event is InputEventScreenDrag:
-		if new_node and create_action_pressed:
-			if not new_node.get_parent():
-				add_node(new_node)
+		if current_node and create_action_pressed:
+			if not current_node.get_parent():
+				add_node(current_node)
 				node_created.emit()
+				Hints.complete_milestone("create")
 
-			new_node.position += Camera.unproject_vector(event.relative)
+			current_node.position += Camera.unproject_vector(event.relative)
 		else:
 			super._on_area_input_event(_viewport, event, _shape_idx)
 

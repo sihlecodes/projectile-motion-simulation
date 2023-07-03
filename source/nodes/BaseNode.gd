@@ -1,6 +1,6 @@
 extends Node2D
 
-class_name BasePoint
+class_name BaseNode
 
 const DRAG_RADIUS: float = 1000
 const DRAG_RADIUS_BUFFER: float = 2 # makes it slightly easier to grab nodes
@@ -28,9 +28,9 @@ func activate_exclusively(activated: = true) -> void:
 	shape_radius = DRAG_RADIUS if activated else radius
 
 	if activated:
-		Points.disable_all_except(self)
+		Nodes.disable_all_except(self)
 	else:
-		Points.enable_all()
+		Nodes.enable_all()
 
 func _ready() -> void:
 	$area/shape.shape = CircleShape2D.new()
@@ -52,3 +52,4 @@ func _on_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -
 			return
 
 		position += Camera.unproject_vector(event.relative)
+		Hints.complete_milestone("move")

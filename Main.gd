@@ -4,14 +4,20 @@ extends Node
 @onready var steps_slider = $ui/container/column/grid/steps_slider
 @onready var path_renderer: = $PathRenderer
 @onready var hint_label: = $ui/container/hint
-@onready var hints: = preload("res://Hints.gd").new()
 
-func set_hint_milestone(milestone):
-	hint_label.text = "hint: " + milestone.instruction
+func update_milestone_hint():
+	var milestone: = Hints.current_milestone
+
+	if milestone:
+		hint_label.text = "hint: " + milestone.instruction
+	else:
+		hint_label.text = ""
 
 func _ready() -> void:
 	steps_slider.value = path_renderer.draw_steps
-	set_hint_milestone(hints.milestones.add)
+	update_milestone_hint()
+
+	Hints.milestone_completed.connect(update_milestone_hint)
 
 func _on_reset_pressed() -> void:
 	var animation_duration: = 0.2
@@ -30,11 +36,11 @@ func _on_container_gui_input(event: InputEvent) -> void:
 
 	if event is InputEventPanGesture or event is InputEventScreenDrag:
 		# pan when none of the points are currently being manipulated
-		if not Points.any_pressed():
+		if not Nodes.any_pressed():
 			camera.offset -= Camera.unproject_vector(event.relative)
 
 func _on_clear_pressed() -> void:
-	for child in path_renderer.get_children().slice(2):
+	for child in path_renderer.get_nodes():
 		child.queue_free()
 
 func _on_range_slider_value_changed(value: float) -> void:

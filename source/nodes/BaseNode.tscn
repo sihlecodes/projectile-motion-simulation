@@ -1,9 +1,11 @@
 [gd_scene load_steps=2 format=3 uid="uid://bjkf87eldsavs"]
 
-[ext_resource type="Script" path="res://source/BasePoint.gd" id="1_w2rhs"]
+[ext_resource type="Script" path="res://source/nodes/BaseNode.gd" id="1_w2rhs"]
 
-[node name="BasePoint" type="Node2D" groups=["points"]]
+[node name="BaseNode" type="Node2D" groups=["nodes"]]
 script = ExtResource("1_w2rhs")
+color = null
+radius = null
 
 [node name="area" type="Area2D" parent="."]
 

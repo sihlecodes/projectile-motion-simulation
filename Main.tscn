@@ -1,35 +1,31 @@
 [gd_scene load_steps=7 format=3 uid="uid://bodlio6p472nu"]
 
-[ext_resource type="Script" path="res://source/Main.gd" id="1_an6s0"]
+[ext_resource type="Script" path="res://Main.gd" id="1_2g3im"]
 [ext_resource type="Script" path="res://source/Ground.gd" id="2_vgwyk"]
-[ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/PathRenderer.tscn" id="2_x1ih8"]
-[ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/PathNode.tscn" id="3_5e8d8"]
-[ext_resource type="Script" path="res://source/controls.gd" id="5_fme3t"]
+[ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/nodes/special/PathRenderer.tscn" id="2_x1ih8"]
+[ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/nodes/PathNode.tscn" id="3_5e8d8"]
+[ext_resource type="Script" path="res://source/workarounds/controls.gd" id="5_fme3t"]
 
 [sub_resource type="Theme" id="Theme_a4itc"]
 
 [node name="Main" type="Node"]
-script = ExtResource("1_an6s0")
+script = ExtResource("1_2g3im")
 
 [node name="ground" type="Line2D" parent="."]
 position = Vector2(0, 100)
 points = PackedVector2Array(-656.5, 0, 656.5, 0)
 script = ExtResource("2_vgwyk")
 
-[node name="PathRenderer" parent="." instance=ExtResource("2_x1ih8")]
+[node name="PathRenderer" parent="." groups=["points"] instance=ExtResource("2_x1ih8")]
 range_color = Color(0.6734, 0.69782, 0.74, 0.498039)
 draw_steps = 100
+color = Color(0, 0, 0, 1)
+radius = 8.0
 
-[node name="PathPoint" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(92.7951, 37.2702)
-connector_color = Color(0.2, 0.278431, 0.423529, 1)
-path_color = Color(0.980392, 0.498039, 0.34902, 1)
-
-[node name="PathPoint2" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(27, 54)
-
-[node name="PathPoint3" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
-position = Vector2(63, 49)
+[node name="PathNode" parent="PathRenderer" groups=["points"] instance=ExtResource("3_5e8d8")]
+position = Vector2(-59, 47)
+color = Color(0, 0, 0, 1)
+radius = 8.0
 
 [node name="camera" type="Camera2D" parent="."]
 
@@ -99,13 +95,14 @@ layout_mode = 2
 text = "Clear points"
 
 [node name="hint" type="RichTextLabel" parent="ui/container"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_colors/default_color = Color(0.290196, 0.290196, 0.290196, 1)
 bbcode_enabled = true
 text = "hint: you can click and drag the nodes to move them around"
+fit_content = true
 
 [connection signal="gui_input" from="ui/container" to="." method="_on_container_gui_input"]
 [connection signal="value_changed" from="ui/container/column/grid/range_slider" to="." method="_on_range_slider_value_changed"]

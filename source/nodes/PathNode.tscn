@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://cl306rv6kev8w"]
 
-[ext_resource type="Script" path="res://source/PathNode.gd" id="1_evkc4"]
-[ext_resource type="PackedScene" uid="uid://bjkf87eldsavs" path="res://source/BasePoint.tscn" id="1_yk085"]
+[ext_resource type="Script" path="res://source/nodes/PathNode.gd" id="1_evkc4"]
+[ext_resource type="PackedScene" uid="uid://bjkf87eldsavs" path="res://source/nodes/BaseNode.tscn" id="1_yk085"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tjx7l"]
 
-[node name="PathPoint" instance=ExtResource("1_yk085")]
+[node name="PathNode" instance=ExtResource("1_yk085")]
 script = ExtResource("1_evkc4")
 connector_color = Color(0.392157, 0.584314, 0.929412, 1)
 path_color = Color(0, 0.74902, 1, 1)
