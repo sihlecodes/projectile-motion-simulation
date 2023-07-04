@@ -1,7 +1,6 @@
 extends Node
 
 class Milestone:
-	var completed: bool = false
 	var instruction: String
 	var action: String
 	var next: Milestone
@@ -12,9 +11,6 @@ class Milestone:
 
 	func is_action(action: String) -> bool:
 		return self.action == action
-
-	func complete():
-		completed = true
 
 var current_milestone: Milestone
 
@@ -31,7 +27,6 @@ func _ready():
 	current_milestone = move
 
 func complete_milestone(action: String):
-	if current_milestone.is_action(action):
-		current_milestone.complete()
+	if current_milestone and current_milestone.is_action(action):
 		current_milestone = current_milestone.next
 		milestone_completed.emit()

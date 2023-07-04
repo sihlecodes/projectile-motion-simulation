@@ -11,13 +11,21 @@ func update_milestone_hint():
 	if milestone:
 		hint_label.text = "hint: " + milestone.instruction
 	else:
-		hint_label.text = ""
+		hint_label.text = "hint: tutorial completed"
 
 func _ready() -> void:
 	steps_slider.value = path_renderer.draw_steps
 	update_milestone_hint()
 
-	Hints.milestone_completed.connect(update_milestone_hint)
+	Hints.milestone_completed.connect(_on_milestone_completed)
+
+func _on_milestone_completed():
+	var tween: = create_tween()
+
+	tween.tween_property(hint_label, "modulate", Color.TRANSPARENT, 0.5)
+	tween.tween_callback(update_milestone_hint)
+	tween.tween_interval(0.2)
+	tween.tween_property(hint_label, "modulate", Color.WHITE, 0.3)
 
 func _on_reset_pressed() -> void:
 	var animation_duration: = 0.2
