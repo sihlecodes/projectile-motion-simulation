@@ -27,6 +27,10 @@ func _on_milestone_completed():
 	tween.tween_interval(0.2)
 	tween.tween_property(hint_label, "modulate", Color.WHITE, 0.3)
 
+func _on_clear_pressed() -> void:
+	for child in path_renderer.get_children():
+		child.queue_free()
+
 func _on_reset_pressed() -> void:
 	var animation_duration: = 0.2
 	var tween = create_tween().set_parallel(true)
@@ -46,10 +50,6 @@ func _on_container_gui_input(event: InputEvent) -> void:
 		# pan when none of the points are currently being manipulated
 		if not Nodes.any_pressed():
 			camera.offset -= Camera.unproject_vector(event.relative)
-
-func _on_clear_pressed() -> void:
-	for child in path_renderer.get_nodes():
-		child.queue_free()
 
 func _on_range_slider_value_changed(value: float) -> void:
 	path_renderer.set_additional_range(value)

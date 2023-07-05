@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://bodlio6p472nu"]
+[gd_scene load_steps=8 format=3 uid="uid://bodlio6p472nu"]
 
 [ext_resource type="Script" path="res://Main.gd" id="1_2g3im"]
 [ext_resource type="Script" path="res://source/Ground.gd" id="2_vgwyk"]
 [ext_resource type="PackedScene" uid="uid://0rviquni3pnr" path="res://source/nodes/special/PathRenderer.tscn" id="2_x1ih8"]
 [ext_resource type="PackedScene" uid="uid://cl306rv6kev8w" path="res://source/nodes/PathNode.tscn" id="3_5e8d8"]
 [ext_resource type="Script" path="res://source/workarounds/controls.gd" id="5_fme3t"]
+[ext_resource type="Theme" uid="uid://cinar82nmck81" path="res://assets/theme.tres" id="6_mmsyt"]
 
 [sub_resource type="Theme" id="Theme_a4itc"]
 
@@ -16,13 +17,11 @@ position = Vector2(0, 100)
 points = PackedVector2Array(-656.5, 0, 656.5, 0)
 script = ExtResource("2_vgwyk")
 
-[node name="PathRenderer" parent="." groups=["points"] instance=ExtResource("2_x1ih8")]
+[node name="PathRenderer" parent="." groups=["renderer"] instance=ExtResource("2_x1ih8")]
 range_color = Color(0.6734, 0.69782, 0.74, 0.498039)
 draw_steps = 100
-color = Color(0, 0, 0, 1)
-radius = 8.0
 
-[node name="PathNode" parent="PathRenderer" groups=["points"] instance=ExtResource("3_5e8d8")]
+[node name="PathNode" parent="PathRenderer" instance=ExtResource("3_5e8d8")]
 position = Vector2(-59, 47)
 color = Color(0, 0, 0, 1)
 radius = 8.0
@@ -56,6 +55,7 @@ metadata/_edit_group_ = true
 
 [node name="grid" type="GridContainer" parent="ui/container/column"]
 layout_mode = 2
+theme = ExtResource("6_mmsyt")
 
 [node name="range_label" type="Label" parent="ui/container/column/grid"]
 layout_mode = 2
@@ -87,11 +87,13 @@ theme_override_constants/separation = 6
 [node name="reset" type="Button" parent="ui/container/column/row"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("6_mmsyt")
 text = "Reset position"
 
 [node name="clear" type="Button" parent="ui/container/column/row"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("6_mmsyt")
 text = "Clear points"
 
 [node name="hint" type="RichTextLabel" parent="ui/container"]

@@ -1,18 +1,18 @@
 extends Node
 
-func get_path_nodes() -> Array:
+func get_nodes() -> Array:
 	return get_tree().get_nodes_in_group("nodes")
 
 func count() -> int:
-	return get_path_nodes().size()
+	return get_nodes().size()
 
 func do(fn: Callable) -> void:
-	for node in get_path_nodes():
+	for node in get_nodes():
 		if node is BaseNode:
 			fn.call(node)
 
 func any_pressed() -> bool:
-	for node in get_path_nodes():
+	for node in get_nodes():
 		if node is BaseNode:
 			if node.pressed:
 				return true

@@ -10,6 +10,8 @@ script = ExtResource("2_kjob5")
 range_radius = 100.0
 range_color = Color(0.678431, 0.847059, 0.901961, 1)
 draw_steps = 5
+color = Color(0, 0, 0, 1)
+radius = 8.0
 
 [node name="shape" parent="area" index="0"]
 shape = SubResource("CircleShape2D_wet4m")

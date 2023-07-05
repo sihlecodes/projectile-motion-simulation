@@ -25,9 +25,6 @@ signal node_created
 signal node_deleted(node)
 signal node_dragged
 
-func get_nodes() -> Array:
-	return []
-
 func set_additional_range(percentage: float):
 	range_radius = MIN_RANGE_RADIUS + MAX_ADDITIONAL_RANGE * percentage/100
 
